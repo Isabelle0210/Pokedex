@@ -4,3 +4,22 @@
 .content{
     padding: 1rem;
 }
+.content h1{
+    margin: 0;
+}
+ol.pokemons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /*grid para fazer com que os itens fique um na frente do outro*/
+    list-style: none; /*tira os ponto/marcações*/
+    padding: 0;
+    margin: 0;
+}
+ol.pokemons li{
+    margin: 0.5rem;
+    padding: 2rem 1rem;
+    background-color: #14a06f;
+    border-radius: 1rem;
+    color: #fff;
+    /*height: 100px;*/
+}
