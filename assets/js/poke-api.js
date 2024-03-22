@@ -1,7 +1,6 @@
+const pokeApi = {}
 
-const PokeAPI = {}
-
-function convertPokeApiDetailToPokemon(pokeDetail){
+function convertPokeApiDetailToPokemon(pokeDetail) {
     const pokemon = new Pokemon()
     pokemon.number = pokeDetail.id
     pokemon.name = pokeDetail.name
@@ -17,31 +16,19 @@ function convertPokeApiDetailToPokemon(pokeDetail){
     return pokemon
 }
 
-
-PokeAPI.getPokemonDetail=(pokemon)=>{
+pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
-            .then((response)=>response.json())
-            .then(convertPokeApiDetailToPokemon)
+        .then((response) => response.json())
+        .then(convertPokeApiDetailToPokemon)
 }
-PokeAPI.getPokemons = (offset = 0,limit = 20)=>{
+
+pokeApi.getPokemons = (offset = 0, limit = 5) => {
     const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
+
     return fetch(url)
-    //o fetch irá retornar uma promisse
-    //quando isso funcionar, irá executar a funcao, senao executara a funcao do catch
-        .then((response) =>  response.json())//transformo o responde em uma promessa bodyjson
-        .then((jsonBody)=> jsonBody.results)//recebo o body convertido
-        .then((pokemons)=>pokemons.map(PokeAPI.getPokemonDetail))
-        .then((detailRequest)=>Promise.all(detailRequest))
-        .then((pokemonDetails)=> pokemonDetails)
+        .then((response) => response.json())
+        .then((jsonBody) => jsonBody.results)
+        .then((pokemons) => pokemons.map(pokeApi.getPokemonDetail))
+        .then((detailRequests) => Promise.all(detailRequests))
+        .then((pokemonsDetails) => pokemonsDetails)
 }
-
-/*Promise.all([
-    fetch('https://pokeapi.co/api/v2/pokemon/1'),
-    fetch('https://pokeapi.co/api/v2/pokemon/2'),
-    fetch('https://pokeapi.co/api/v2/pokemon/3'),
-    fetch('https://pokeapi.co/api/v2/pokemon/4')
-]).then((results)=>{
-    console.log(results)
-})*/
-
-
