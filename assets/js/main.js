@@ -23,7 +23,6 @@ function convertPokemonToLi(pokemon){
     `
 }
 const pokemonList = document.getElementById('pokemonList')
-//AQUI USO UM LOOP FOR PARA FAZER A CONVERSAO DO TEXTO QUE ESTA NO JS PARA O HTML
 PokeAPI.getPokemons()
 .then((pokemons=[])=> {
     
